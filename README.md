@@ -1,24 +1,28 @@
 # wa-neo
 
-Klien WhatsApp di terminal dengan tampilan neo-brutalism. Berjalan lokal di Mac kamu, tanpa server pihak ketiga: sesi dan riwayat chat disimpan di `~/Library/Application Support/wa-neo`.
+**English** | [Bahasa Indonesia](README.id.md)
 
-Dibangun dengan [whatsmeow](https://github.com/tulir/whatsmeow) dan [Bubble Tea](https://github.com/charmbracelet/bubbletea).
+A WhatsApp client for the terminal with a neo-brutalist look. It runs on your Mac. There is no server in the middle. Your login and chat history are saved on your own computer in `~/Library/Application Support/wa-neo`.
 
-> Ini klien tidak resmi dan tidak berafiliasi dengan WhatsApp. WhatsApp tidak mengizinkannya secara resmi, jadi ada risiko akun dibatasi. Pakai dengan wajar, jangan untuk kirim massal, dan sebaiknya coba dulu dengan nomor sekunder.
+Built with [whatsmeow](https://github.com/tulir/whatsmeow) and [Bubble Tea](https://github.com/charmbracelet/bubbletea).
 
-## Fitur
+> This is an unofficial client. It is not made by or connected to WhatsApp. WhatsApp does not officially allow it, so your account could be limited or banned. Use it with care. Do not send bulk messages. It is a good idea to try it with a spare number first.
 
-- Daftar chat dengan foto profil (pixel), lencana pesan belum dibaca, dan pratinjau pesan
-- Baca dan kirim pesan teks, termasuk grup
-- Foto dan stiker tampil di chat, klik foto untuk membukanya di Preview
-- Kirim gambar lewat paste (`Cmd+V`), drag file ke terminal, atau `/img`
-- Notifikasi macOS untuk pesan masuk
-- Di iTerm2, foto dan avatar header tampil tajam. Di terminal lain tampil sebagai blok warna
+## Features
 
-## Pasang (macOS)
+- Chat list with profile photos (pixel style), unread counts, and message previews
+- Read and send text messages, including groups
+- Photos and stickers show in the chat. Click a photo to open it in Preview
+- Send images by pasting (`Cmd+V`), dragging a file into the terminal, or using `/img`
+- macOS notifications for new messages
+- In iTerm2, photos and the header picture are sharp. In other terminals they are shown as colored blocks
 
-1. Unduh `wa-neo_<versi>_macos_arm64.tar.gz` (Apple Silicon) atau `..._amd64.tar.gz` (Intel) dari halaman [Releases](../../releases).
-2. Buka terminal lalu jalankan:
+## Install (macOS)
+
+1. Download the file for your Mac from the [Releases](../../releases) page:
+   - Apple Silicon (M1, M2, M3, M4): `wa-neo_<version>_macos_arm64.tar.gz`
+   - Intel: `wa-neo_<version>_macos_amd64.tar.gz`
+2. Open Terminal and run:
 
 ```bash
 tar xzf wa-neo_*_macos_*.tar.gz
@@ -26,56 +30,58 @@ xattr -d com.apple.quarantine wa-neo
 ./wa-neo
 ```
 
-Langkah `xattr` perlu karena binary belum ditandatangani Apple, jadi Gatekeeper akan memblokirnya tanpa langkah itu.
+The `xattr` step is needed because the app is not signed by Apple. Without it, macOS will block the app.
 
-Disarankan memakai [iTerm2](https://iterm2.com) dengan jendela besar (minimal sekitar 110×40).
+We recommend [iTerm2](https://iterm2.com) with a big window (at least about 110 columns by 40 rows).
 
-## Pemakaian
+## How to use
 
-Pertama kali: scan QR di HP lewat **WhatsApp > Perangkat tertaut > Tautkan perangkat**.
+The first time you run it, scan the QR code with your phone: **WhatsApp > Linked devices > Link a device**.
 
-| Aksi | Cara |
+| What you want | How |
 | --- | --- |
-| Pilih chat | klik, atau `↑` `↓` |
-| Kirim pesan | ketik lalu `Enter` |
-| Tutup chat | `Esc` |
-| Scroll pesan | scroll mouse, atau `PgUp` `PgDn` |
-| Chat baru | `/new 628123456789` |
-| Kirim gambar | `Cmd+V` setelah menyalin gambar, drag file ke terminal, atau `/img ~/foto.jpg caption` |
-| Buka foto asli | klik foto |
-| Keluar | `Ctrl+C` |
+| Pick a chat | Click it, or use `↑` `↓` |
+| Send a message | Type, then press `Enter` |
+| Close the chat | `Esc` |
+| Scroll messages | Mouse wheel, or `PgUp` `PgDn` |
+| Start a new chat | `/new 628123456789` |
+| Send an image | `Cmd+V` after copying an image, drag a file into the terminal, or `/img ~/photo.jpg caption` |
+| Open the original photo | Click the photo |
+| Quit | `Ctrl+C` |
 
-Riwayat lama muncul setelah sinkronisasi pertama selesai.
+Old messages show up after the first sync finishes.
 
-## Pengaturan
+## Settings
 
-Diatur lewat variabel lingkungan:
+You can change some things with environment variables:
 
-| Variabel | Nilai | Fungsi |
+| Variable | Value | What it does |
 | --- | --- | --- |
-| `WA_NEO_IMAGES` | `blocks` | Paksa gambar blok warna, tanpa protokol gambar iTerm2 |
-| `WA_NEO_EMOJI` | `off` | Tampilkan emoji sebagai `□` |
-| `WA_NEO_NOTIFY` | `off` | Matikan notifikasi |
-| `WA_NEO_DIR` | folder | Pakai folder data lain |
+| `WA_NEO_IMAGES` | `blocks` | Always use colored blocks, not iTerm2 images |
+| `WA_NEO_EMOJI` | `off` | Show emoji as `□` |
+| `WA_NEO_NOTIFY` | `off` | Turn off notifications |
+| `WA_NEO_DIR` | a folder path | Save data in a different folder |
 
-Contoh: `WA_NEO_NOTIFY=off ./wa-neo`
+Example: `WA_NEO_NOTIFY=off ./wa-neo`
 
-## Data dan privasi
+## Your data and privacy
 
-Semua data ada di `~/Library/Application Support/wa-neo`. Folder `session.db` berisi kunci sesi WhatsApp kamu, jadi jangan dibagikan atau diunggah. Untuk keluar dari akun, hapus folder itu lalu hapus perangkat tertaut di HP.
+All data is saved in `~/Library/Application Support/wa-neo`. The file `session.db` has the keys for your WhatsApp login. Never share it or upload it.
 
-## Build sendiri
+To log out, delete that folder, then remove the linked device on your phone.
 
-Butuh [Go](https://go.dev/dl/).
+## Build it yourself
+
+You need [Go](https://go.dev/dl/).
 
 ```bash
 go build -o wa-neo .
 go test ./...
 ```
 
-## Membuat rilis
+## Make a release
 
-Rilis dibuat otomatis oleh GitHub Actions saat tag `v*` di-push:
+GitHub Actions builds a release when you push a tag that starts with `v`:
 
 ```bash
 git tag v0.1.0

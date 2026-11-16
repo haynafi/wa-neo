@@ -21,7 +21,7 @@ jobs:
           mkdir dist
           for arch in arm64 amd64; do
             GOOS=darwin GOARCH=$arch CGO_ENABLED=0 go build -ldflags "-s -w -X main.version=${GITHUB_REF_NAME}" -o wa-neo .
-            tar czf dist/wa-neo_${GITHUB_REF_NAME}_macos_${arch}.tar.gz wa-neo README.md
+            tar czf dist/wa-neo_${GITHUB_REF_NAME}_macos_${arch}.tar.gz wa-neo README.md README.id.md
           done
           cd dist && shasum -a 256 *.tar.gz > checksums.txt
       - uses: softprops/action-gh-release@v2
